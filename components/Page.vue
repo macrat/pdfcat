@@ -38,15 +38,15 @@ export default {
 	},
 	methods: {
 		load() {
-		if (this.page !== null) {
-			this.page.getOperatorList()
-				.then(opList => (new PDFJS.SVGGraphics(this.page.commonObjs, this.page.objs)).getSVG(opList, this.page.getViewport(0.5)))
-				.then(svg => {
-					const target = this.$refs.wrapper.$el;
-					target.removeChild(target.firstChild);
-					target.appendChild(svg);
-				});
-		}
+			if (this.page !== null) {
+				this.page.getOperatorList()
+					.then(opList => (new PDFJS.SVGGraphics(this.page.commonObjs, this.page.objs)).getSVG(opList, this.page.getViewport(0.5)))
+					.then(svg => {
+						const target = this.$refs.wrapper.$el;
+						target.removeChild(target.firstChild);
+						target.appendChild(svg);
+					});
+			}
 		},
 	},
 };

@@ -3,12 +3,9 @@
 	height: 100vh;
 }
 
-#page-list {
-	display: flex;
-	flex-wrap: wrap;
-}
 .page {
 	margin: 16px;
+	display: inline-block;
 }
 
 input {
@@ -36,7 +33,7 @@ input {
 
 				<md-button class="md-primary md-raised" @click=addFile>ADD NEW FILE</md-button>
 			</md-empty-state>
-			<draggable id=page-list :list=pages v-else>
+			<draggable v-model=pages :options="{animation: 0}" v-else>
 				<page
 					class=page
 					:page=p.pdf
@@ -193,7 +190,11 @@ export default {
 
 			axios.post('/', {files: fs, pages: pages})
 				.then(resp => {
-					window.open(URL.createObjectURL(new Blob([resp.data], {type: 'application/pdf'})));
+					if (resp.status === 200) {
+						location.href = URL.createObjectURL(new Blob([resp.data], {type: 'application/pdf'}));
+					} else {
+						this.serverError = true;
+					}
 				})
 				.catch(err => {
 					console.error(err);
