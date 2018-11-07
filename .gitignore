@@ -1,5 +1,9 @@
 .nuxt/
 dist/
 node_modules/
+
+__pycache__/
 pip/
 pipenv/
+
+*.pdf
